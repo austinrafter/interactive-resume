@@ -1,5 +1,11 @@
 import React from "react";
+import Postman from "../../test/mock/postman.mdx";
 
 export default function MdxTreeRenderer(props: { filename: string }) {
-  return <div>you passed {props.filename}</div>;
+  return (
+    <div>
+      <span>you passed {props.filename}</span>
+      <Postman />
+    </div>
+  );
 }
