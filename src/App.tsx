@@ -9,7 +9,7 @@ function App() {
 
   return (
     <>
-      <MdxTreeRenderer filename={"~/test/mock-resume"}/>
+      <MdxTreeRenderer filename={"~/test/mock-resume"} />
     </>
   );
 }
