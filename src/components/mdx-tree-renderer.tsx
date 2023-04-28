@@ -4,12 +4,10 @@ import PopupLinkifier from "./popup-linkifier";
 import Postman from "../../test/mock/postman.mdx";
 
 export default function MdxTreeRenderer(props: { filename: string }) {
-    const keywordMap = {postman: Postman}
+  const keywordMap = { postman: Postman };
   return (
-
-        <PopupLinkifier keywordMap={keywordMap}>
-            <Resume />
-        </PopupLinkifier>
-
+    <PopupLinkifier keywordMap={keywordMap}>
+      <Resume />
+    </PopupLinkifier>
   );
 }
