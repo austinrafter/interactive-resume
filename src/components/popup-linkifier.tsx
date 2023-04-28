@@ -1,9 +1,9 @@
 import React from "react";
 
-interface Props {
-  keywordMap: Record<string, React.ReactNode>;
-  children: React.ReactNode;
+interface Props<MdxType> {
+  keywordMap: Record<string, MdxType>;
+  children: MdxType;
 }
-export default function PopupLinkifier(props: Props) {
+export default function PopupLinkifier(props: Props<React.ReactElement>) {
   return <span>{props.children}</span>;
 }

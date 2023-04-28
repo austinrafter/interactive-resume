@@ -4,7 +4,8 @@ import PopupLinkifier from "./popup-linkifier";
 import Postman from "../../test/mock/postman.mdx";
 
 export default function MdxTreeRenderer(props: { filename: string }) {
-  const keywordMap = { postman: Postman };
+  const keywordMap: Record<string, React.ReactElement> = { postman: Postman };
+
   return (
     <PopupLinkifier keywordMap={keywordMap}>
       <Resume />
