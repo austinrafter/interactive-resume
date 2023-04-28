@@ -17,7 +17,8 @@
     "@mdx-js/mdx": "^2.0.0-rc.2",
     "@mdx-js/react": "^2.3.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "reactjs-popup": "^2.0.5"
   },
   "devDependencies": {
     "@mdx-js/rollup": "^2.3.0",
