@@ -11,12 +11,13 @@
     "fix-with-prettier": "prettier --cache 'src/**/*.ts' 'src/**/*.tsx' --write",
     "fix-with-eslint": "eslint --cache --ext=js,jsx,ts,tsx src --fix",
     "autolint": "npm run fix-with-eslint && npm run fix-with-prettier",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@mdx-js/mdx": "^2.0.0-rc.2",
     "@mdx-js/react": "^2.3.0",
-
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "reactjs-popup": "^2.0.5"
@@ -44,6 +45,7 @@
     "prettier": "^2.8.8",
     "typescript": "^5.0.4",
     "vite": "^4.3.2",
-    "vite-plugin-mdx": "^3.5.11"
+    "vite-plugin-mdx": "^3.5.11",
+    "vitest": "^0.30.1"
   }
 }
