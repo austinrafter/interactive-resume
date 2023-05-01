@@ -5,8 +5,8 @@ import Loading from "../../test/mock/loading.mdx";
 import Error from "../../test/mock/import-error.mdx";
 import { MDXProvider } from "@mdx-js/react";
 import { Component } from "mdx/types";
-import { getJsxNameFromRelativePath } from "../util/get-jsx-name";
 import isEmpty from "lodash/isEmpty";
+import importMdxFilesIntoJsxComponentMap from "../util/importMdxFilesIntoJsxComponentMap";
 
 export default function MdxTreeRenderer() {
   const [mdxFiles, setMdxFiles] =
@@ -14,24 +14,7 @@ export default function MdxTreeRenderer() {
   const [error, setError] = useState<null>();
 
   useEffect(() => {
-    try {
-      const rawImport: Record<
-        string,
-        Component<React.ReactNode>
-      > = import.meta.glob("../../test/mock/*.mdx");
-
-      const jsxNameDict = Object.entries(rawImport).reduce(
-        (importDict, [fileName, mdxComponent]) => ({
-          ...importDict,
-          [getJsxNameFromRelativePath(fileName)]: mdxComponent,
-        }),
-        {}
-      );
-
-      setMdxFiles(jsxNameDict);
-    } catch (error) {
-      setError(error);
-    }
+    importMdxFilesIntoJsxComponentMap().then(setMdxFiles).catch(setError);
   }, []);
 
   if (isEmpty(mdxFiles)) {
