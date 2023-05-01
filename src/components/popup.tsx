@@ -1,11 +1,10 @@
 import React from "react";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
-import popupStyles from "./popup.module.less";
 
 interface Props {
   trigger: string;
-  component: React.ReactElement;
+  component: React.ReactNode;
 }
 
 export default function Popout(props: Props) {
