@@ -11,6 +11,10 @@ export function getJsxNameFromRelativePath(relativepath: string): string {
   return getJsxName(removeRelativePathFromFilename(relativepath));
 }
 
+function capitalizeFirstLetter(string: string): string {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 function getJsxName(filename: string): string {
-  return startCase(camelCase(filename));
+  return capitalizeFirstLetter(camelCase(filename));
 }
