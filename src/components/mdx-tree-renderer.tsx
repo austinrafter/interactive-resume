@@ -1,31 +1,47 @@
 import React, { useEffect, useState } from "react";
 import Resume from "../../test/mock/mock-resume.mdx";
 import PopupLinkifier from "./popup-linkifier";
-import Postman from "../../test/mock/postman.mdx";
+import Loading from "../../test/mock/loading.mdx";
 import Error from "../../test/mock/import-error.mdx";
 import { MDXProvider } from "@mdx-js/react";
 import { Component } from "mdx/types";
+import { getJsxNameFromRelativePath } from "../util/get-jsx-name";
+import isEmpty from "lodash/isEmpty";
 
 export default function MdxTreeRenderer() {
-  const [mdxFiles, setMdxFiles] = useState();
+  const [mdxFiles, setMdxFiles] =
+    useState<Record<string, Component<React.ReactNode>>>();
+  const [error, setError] = useState<null>();
 
   useEffect(() => {
-    setMdxFiles(import.meta.glob("../../test/mock/*.mdx"));
+    try {
+      const rawImport: Record<
+        string,
+        Component<React.ReactNode>
+      > = import.meta.glob("../../test/mock/*.mdx");
+
+      const jsxNameDict = Object.entries(rawImport).reduce(
+        (importDict, [fileName, mdxComponent]) => ({
+          ...importDict,
+          [getJsxNameFromRelativePath(fileName)]: mdxComponent,
+        }),
+        {}
+      );
+
+      setMdxFiles(jsxNameDict);
+    } catch (error) {
+      setError(error);
+    }
   }, []);
 
-  if (mdxFiles) {
-    debugger;
+  if (isEmpty(mdxFiles)) {
+    return <Loading />;
   }
 
-  const keywordMap: Record<string, Component<React.ReactNode>> = {
-    Postman: Postman,
-    Resume: Resume,
-  };
-
   return (
-    <MDXProvider components={keywordMap}>
+    <MDXProvider components={mdxFiles}>
       <PopupLinkifier>
-        <Resume />
+        {error ? <Error /> : isEmpty(mdxFiles) ? <Loading /> : <Resume />}
       </PopupLinkifier>
     </MDXProvider>
   );
