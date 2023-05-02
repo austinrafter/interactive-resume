@@ -1,10 +1,13 @@
 // @TODO - unit test this
 // "../../test/mock/my-cool-file.mdx" -> "MyCoolFile" ( used as JSX element <MyCoolFile /> )
-import startCase from "lodash/startCase";
 import camelCase from "lodash/camelCase";
 
 function removeRelativePathFromFilename(filename: string): string {
-  return filename.split("/").pop().split(".").shift()!;
+  const fileNameWithoutExtension = filename.split("/").pop().split(".").shift();
+  if (!fileNameWithoutExtension || fileNameWithoutExtension.length === 0) {
+    throw new Error(`Invalid filename: ${filename}`);
+  }
+  return fileNameWithoutExtension;
 }
 
 export function getJsxNameFromRelativePath(relativepath: string): string {

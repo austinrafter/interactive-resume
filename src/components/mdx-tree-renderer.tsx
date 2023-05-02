@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Resume from "../../test/mock/mock-resume.mdx";
-import PopupLinkifier from "./popup-linkifier";
+import PopoutLinkifier from "./popout-linkifier";
 import Loading from "../../test/mock/loading.mdx";
 import Error from "../../test/mock/import-error.mdx";
 import { MDXProvider } from "@mdx-js/react";
 import { Component } from "mdx/types";
 import isEmpty from "lodash/isEmpty";
-import importMdxFilesIntoJsxComponentMap from "../util/importMdxFilesIntoJsxComponentMap";
+import importMdxFilesIntoJsxComponentMap from "../util/import-mdx-files-into-jsx-component-map";
 
 export default function MdxTreeRenderer() {
   const [mdxFiles, setMdxFiles] =
@@ -23,9 +23,9 @@ export default function MdxTreeRenderer() {
 
   return (
     <MDXProvider components={mdxFiles}>
-      <PopupLinkifier>
+      <PopoutLinkifier>
         {error ? <Error /> : isEmpty(mdxFiles) ? <Loading /> : <Resume />}
-      </PopupLinkifier>
+      </PopoutLinkifier>
     </MDXProvider>
   );
 }
