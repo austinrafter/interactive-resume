@@ -7,6 +7,8 @@ import { MDXProvider } from "@mdx-js/react";
 import { Component } from "mdx/types";
 import isEmpty from "lodash/isEmpty";
 import importMdxFilesIntoJsxComponentMap from "../util/import-mdx-files-into-jsx-component-map";
+import { PiiContext } from "./pii";
+import pii from "../../src/util/get-encrypted-pii.ts";
 
 export default function MdxTreeRenderer() {
   const [mdxFiles, setMdxFiles] =
@@ -23,9 +25,11 @@ export default function MdxTreeRenderer() {
 
   return (
     <MDXProvider components={mdxFiles}>
-      <PopoutLinkifier>
-        {error ? <Error /> : isEmpty(mdxFiles) ? <Loading /> : <Resume />}
-      </PopoutLinkifier>
+      <PiiContext.Provider value={pii}>
+        <PopoutLinkifier>
+          {error ? <Error /> : isEmpty(mdxFiles) ? <Loading /> : <Resume />}
+        </PopoutLinkifier>
+      </PiiContext.Provider>
     </MDXProvider>
   );
 }
