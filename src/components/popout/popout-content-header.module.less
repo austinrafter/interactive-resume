@@ -2,14 +2,13 @@
 @import "src/styles/sizes";
 
 .root {
-  &:extend(.main-text);
 
   display: flex;
   align-items: flex-end;
   justify-content: end;
 
-  background: @backgroundPrimary;
   border-radius: @size2 @size2 0px 0px;
+  border: 1px solid @borderPrimary;
 
   margin-bottom: @size1;
 
@@ -18,6 +17,6 @@
 
   a {
     font-size: @size5;
-    padding-right: @size2;
+    margin-right: @size2;
   }
 }
