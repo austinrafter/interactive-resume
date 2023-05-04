@@ -1,0 +1,23 @@
+@import "src/styles/fonts";
+@import "src/styles/sizes";
+
+.root {
+  &:extend(.main-text);
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: end;
+
+  background: @backgroundPrimary;
+  border-radius: @size2 @size2 0px 0px;
+
+  margin-bottom: @size1;
+
+  width: 100%;
+  max-width: @max-display-width;
+
+  a {
+    font-size: @size5;
+    padding-right: @size2;
+  }
+}

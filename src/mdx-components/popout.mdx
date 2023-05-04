@@ -1,5 +1,5 @@
-import JSXPopout from "~/components/popout"
-import {getJsxNameFromRelativePath} from "~/util/get-jsx-name";
+import JSXPopout from "~/components/popout";
+import { getJsxNameFromRelativePath } from "~/util/get-jsx-name";
 
 export default function Popout(props) {
     const fileName = props.children._source.fileName
@@ -7,7 +7,6 @@ export default function Popout(props) {
 
     const PopoutTrigger = () => (<a>{trigger}</a>)
 
-    debugger
     return (
         <JSXPopout trigger={<PopoutTrigger />}>
             {props.children}

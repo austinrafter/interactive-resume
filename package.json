@@ -8,7 +8,7 @@
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "fix-with-prettier": "prettier --cache 'src/**/*.ts' 'src/**/*.tsx' 'src/**/*.mdx' 'test/**/*.ts' 'test/**/*.tsx' 'test/**/*.mdx' --write",
+    "fix-with-prettier": "prettier --cache 'src/**/*.ts' 'src/**/*.tsx' 'src/**/*.mdx' --write",
     "fix-with-eslint": "eslint --cache --ext=js,jsx,ts,tsx src --fix",
     "autolint": "npm run fix-with-eslint && npm run fix-with-prettier",
     "prepare": "husky install",

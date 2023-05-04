@@ -1,4 +1,4 @@
-import "./App.css";
+import "./App.less";
 import MdxTreeRenderer from "./components/mdx-tree-renderer";
 
 function App() {
