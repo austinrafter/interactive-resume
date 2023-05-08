@@ -1,8 +1,10 @@
-import styles from "./popout-content-body.module.less";
-interface PopoutContentBodyProps {
+import styles from "./subpage-link-content-body.module.less";
+interface SubpageLinkContentBodyProps {
   children: (() => React.ReactNode) | React.ReactNode;
 }
-export default function PopoutContentBody(props: PopoutContentBodyProps) {
+export default function SubpageLinkContentBody(
+  props: SubpageLinkContentBodyProps
+) {
   const children =
     typeof props.children === "function" ? props.children() : props.children;
 

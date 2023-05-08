@@ -1,7 +1,8 @@
 import { Component } from "mdx/types";
 import React from "react";
-import { getJsxNameFromRelativePath } from "./get-jsx-name";
-import Popout from "../components/popout";
+import { getJsxNameFromRelativePath } from "./name/get-jsx-name.ts";
+import { Link } from "react-router-dom";
+import { getUrlSlugNameFromRelativePath } from "./name";
 
 async function waitForImportToResolveAndExtractDefaultExport([
   fileName,
@@ -14,15 +15,15 @@ async function waitForImportToResolveAndExtractDefaultExport([
   return [jsxName, theJsxComponent as Component<React.ReactNode>];
 }
 
-function wrapWithPopout([fileName, theMdxComponent]: [
+function wrapWithLink([fileName]: [string, Component<React.ReactNode>]): [
   string,
   Component<React.ReactNode>
-]): [string, Component<React.ReactNode>] {
-  const popoutWrappedJsxComponent: Component<React.ReactNode> = () => (
-    <Popout trigger={fileName} component={theMdxComponent as React.ReactNode} />
+] {
+  const PageLink: Component<React.ReactNode> = () => (
+    <Link to={`/${getUrlSlugNameFromRelativePath(fileName)}`}>{fileName}</Link>
   );
 
-  return [`${fileName}Popout`, popoutWrappedJsxComponent];
+  return [`${fileName}Link`, PageLink];
 }
 
 type ComponentWithMetadata<U> = U & { meta: { title: string } };
@@ -47,7 +48,10 @@ function addMetaDataToComponentMap<
   );
 }
 
-type ReturnType = Record<string, Component<React.ReactNode>>;
+export type WrappedJsxComponentsDictionary = Record<
+  string,
+  Component<React.ReactNode>
+>;
 
 /**
  * Imports all .mdx files in the src/mdx-components directory and the test/mock directory
@@ -61,7 +65,7 @@ type ReturnType = Record<string, Component<React.ReactNode>>;
 async function importMdxFilesAndTransformThemIntoJsxComponentsScript(
   resolve,
   reject
-): Promise<ReturnType> {
+): Promise<WrappedJsxComponentsDictionary> {
   try {
     // 1. Import various MDX files from various places. Apparently, import.meta.glob only supports string literals,
     //    so I am leaving this hard-coded for now.
@@ -86,14 +90,13 @@ async function importMdxFilesAndTransformThemIntoJsxComponentsScript(
     const jsxNameToJsxComponentPairs: [string, Component<React.ReactNode>][] =
       await Promise.all(jsxNameToJsxComponentPairsPromises);
 
-    const popoutWrapped = jsxNameToJsxComponentPairs.map(wrapWithPopout);
+    const linkWrapped = jsxNameToJsxComponentPairs.map(wrapWithLink);
 
-    const jsxComponentMap = Object.fromEntries(popoutWrapped);
+    const jsxComponentMap = Object.fromEntries(linkWrapped);
 
     // 3. Make a combined component map. Components are available as:
     //      <MyComponent />
-    //      <MyComponentPopout />
-    //      <MyComponentLink /> // @TODO - Haven't done this yet!
+    //      <MyComponentLink />
     const combinedComponentMap = {
       ...jsxComponentMap,
       ...Object.fromEntries(jsxNameToJsxComponentPairs),
@@ -108,8 +111,8 @@ async function importMdxFilesAndTransformThemIntoJsxComponentsScript(
   }
 }
 
-export default async function importMdxFilesIntoJsxComponentMap(): Promise<ReturnType> {
+export default async function importMdxFilesIntoJsxComponentMap(): Promise<WrappedJsxComponentsDictionary> {
   return new Promise(
     importMdxFilesAndTransformThemIntoJsxComponentsScript
-  ) as Promise<ReturnType>;
+  ) as Promise<WrappedJsxComponentsDictionary>;
 }
