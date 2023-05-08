@@ -28,9 +28,7 @@ export default function MdxTreeRenderer() {
     <MDXProvider components={mdxFiles}>
       <PiiContext.Provider value={pii}>
         {error ? <Error /> : isEmpty(mdxFiles) ? <Loading /> : <Resume />}
-        <SubpageLink>
-          <Outlet />
-        </SubpageLink>
+        <Outlet />
       </PiiContext.Provider>
     </MDXProvider>
   );

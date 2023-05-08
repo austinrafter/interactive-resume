@@ -3,10 +3,9 @@ import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import importMdxFilesIntoJsxComponentMap, {
-  WrappedJsxComponentsDictionary,
-} from "./util/import-mdx-files-into-jsx-component-map";
+import { WrappedJsxComponentsDictionary } from "./util/import-mdx-files-into-jsx-component-map";
 import { RouteObject } from "react-router/dist/lib/context";
+import SubpageLink from "./components/subpage-link/subpage-link";
 
 // For some reason, can't import this.
 type RemixRouter = ReturnType<typeof createBrowserRouter>;
@@ -18,7 +17,11 @@ function getChildrenRoutes(
     ([componentName, JsxComponent]): RouteObject => {
       const routeObject: RouteObject = {
         path: componentName,
-        element: <JsxComponent />,
+        element: (
+          <SubpageLink>
+            <JsxComponent />
+          </SubpageLink>
+        ),
       };
 
       return routeObject;

@@ -1,8 +1,10 @@
 import styles from "./subpage-link-content-body.module.less";
-interface PopoutContentBodyProps {
+interface SubpageLinkContentBodyProps {
   children: (() => React.ReactNode) | React.ReactNode;
 }
-export default function SubpageLinkContentBody(props: PopoutContentBodyProps) {
+export default function SubpageLinkContentBody(
+  props: SubpageLinkContentBodyProps
+) {
   const children =
     typeof props.children === "function" ? props.children() : props.children;
 
