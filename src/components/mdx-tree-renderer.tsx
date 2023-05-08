@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Resume from "../../test/mock/mock-resume.mdx";
-import PopoutLinkifier from "./popout-linkifier";
 import Loading from "../../test/mock/loading.mdx";
 import Error from "../../test/mock/import-error.mdx";
 import { MDXProvider } from "@mdx-js/react";
@@ -9,6 +8,7 @@ import isEmpty from "lodash/isEmpty";
 import importMdxFilesIntoJsxComponentMap from "../util/import-mdx-files-into-jsx-component-map";
 import { PiiContext } from "./pii";
 import pii from "../../src/util/get-encrypted-pii.ts";
+import { Outlet } from "react-router-dom";
 
 export default function MdxTreeRenderer() {
   const [mdxFiles, setMdxFiles] =
@@ -26,9 +26,8 @@ export default function MdxTreeRenderer() {
   return (
     <MDXProvider components={mdxFiles}>
       <PiiContext.Provider value={pii}>
-        <PopoutLinkifier>
-          {error ? <Error /> : isEmpty(mdxFiles) ? <Loading /> : <Resume />}
-        </PopoutLinkifier>
+        {error ? <Error /> : isEmpty(mdxFiles) ? <Loading /> : <Resume />}
+        <Outlet />
       </PiiContext.Provider>
     </MDXProvider>
   );

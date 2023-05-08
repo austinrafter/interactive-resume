@@ -6,19 +6,36 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import importMdxFilesIntoJsxComponentMap, {
   WrappedJsxComponentsDictionary,
 } from "./util/import-mdx-files-into-jsx-component-map";
+import { RouteObject } from "react-router/dist/lib/context";
 
 // For some reason, can't import this.
 type RemixRouter = ReturnType<typeof createBrowserRouter>;
 
+function getChildrenRoutes(
+  componentDictionary: WrappedJsxComponentsDictionary
+): RouteObject[] {
+  return Object.entries(componentDictionary).map(
+    ([componentName, JsxComponent]): RouteObject => {
+      const routeObject: RouteObject = {
+        path: componentName,
+        element: <JsxComponent />,
+      };
+
+      return routeObject;
+    }
+  );
+}
+
 function addMdxComponentsToRouter(
   componentDictionary: WrappedJsxComponentsDictionary
 ): RemixRouter {
+  const children = getChildrenRoutes(componentDictionary);
   return createBrowserRouter([
     {
       path: "/",
       element: <App />, // should be root
       errorElement: <Error />,
-      children: [],
+      children,
     },
   ]);
 }
