@@ -47,7 +47,10 @@ function addMetaDataToComponentMap<
   );
 }
 
-type ReturnType = Record<string, Component<React.ReactNode>>;
+export type WrappedJsxComponentsDictionary = Record<
+  string,
+  Component<React.ReactNode>
+>;
 
 /**
  * Imports all .mdx files in the src/mdx-components directory and the test/mock directory
@@ -61,7 +64,7 @@ type ReturnType = Record<string, Component<React.ReactNode>>;
 async function importMdxFilesAndTransformThemIntoJsxComponentsScript(
   resolve,
   reject
-): Promise<ReturnType> {
+): Promise<WrappedJsxComponentsDictionary> {
   try {
     // 1. Import various MDX files from various places. Apparently, import.meta.glob only supports string literals,
     //    so I am leaving this hard-coded for now.
@@ -108,8 +111,8 @@ async function importMdxFilesAndTransformThemIntoJsxComponentsScript(
   }
 }
 
-export default async function importMdxFilesIntoJsxComponentMap(): Promise<ReturnType> {
+export default async function importMdxFilesIntoJsxComponentMap(): Promise<WrappedJsxComponentsDictionary> {
   return new Promise(
     importMdxFilesAndTransformThemIntoJsxComponentsScript
-  ) as Promise<ReturnType>;
+  ) as Promise<WrappedJsxComponentsDictionary>;
 }
