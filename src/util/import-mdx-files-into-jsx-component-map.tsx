@@ -2,6 +2,7 @@ import { Component } from "mdx/types";
 import React from "react";
 import { getJsxNameFromRelativePath } from "./get-jsx-name";
 import Popout from "../components/popout";
+import { Link } from "react-router-dom";
 
 async function waitForImportToResolveAndExtractDefaultExport([
   fileName,
@@ -23,6 +24,17 @@ function wrapWithPopout([fileName, theMdxComponent]: [
   );
 
   return [`${fileName}Popout`, popoutWrappedJsxComponent];
+}
+
+function wrapWithLink([fileName]: [string, Component<React.ReactNode>]): [
+  string,
+  Component<React.ReactNode>
+] {
+  const link: Component<React.ReactNode> = () => (
+    <Link to={`/${fileName}`}>{fileName}</Link>
+  );
+
+  return [`${fileName}Link`, link];
 }
 
 type ComponentWithMetadata<U> = U & { meta: { title: string } };
@@ -90,13 +102,16 @@ async function importMdxFilesAndTransformThemIntoJsxComponentsScript(
       await Promise.all(jsxNameToJsxComponentPairsPromises);
 
     const popoutWrapped = jsxNameToJsxComponentPairs.map(wrapWithPopout);
+    const linkWrapped = jsxNameToJsxComponentPairs.map(wrapWithLink);
 
-    const jsxComponentMap = Object.fromEntries(popoutWrapped);
+    const jsxComponentMap = Object.fromEntries(
+      linkWrapped.concat(popoutWrapped)
+    );
 
     // 3. Make a combined component map. Components are available as:
     //      <MyComponent />
     //      <MyComponentPopout />
-    //      <MyComponentLink /> // @TODO - Haven't done this yet!
+    //      <MyComponentLink />
     const combinedComponentMap = {
       ...jsxComponentMap,
       ...Object.fromEntries(jsxNameToJsxComponentPairs),
