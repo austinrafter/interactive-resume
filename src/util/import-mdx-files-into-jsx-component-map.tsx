@@ -1,6 +1,6 @@
 import { Component } from "mdx/types";
 import React from "react";
-import { getJsxNameFromRelativePath } from "./get-jsx-name";
+import { getJsxNameFromRelativePath } from "./name/get-jsx-name.ts";
 import Popout from "../components/popout";
 import { Link } from "react-router-dom";
 
@@ -30,11 +30,11 @@ function wrapWithLink([fileName]: [string, Component<React.ReactNode>]): [
   string,
   Component<React.ReactNode>
 ] {
-  const link: Component<React.ReactNode> = () => (
+  const PageLink: Component<React.ReactNode> = () => (
     <Link to={`/${fileName}`}>{fileName}</Link>
   );
 
-  return [`${fileName}Link`, link];
+  return [`${fileName}Link`, PageLink];
 }
 
 type ComponentWithMetadata<U> = U & { meta: { title: string } };
