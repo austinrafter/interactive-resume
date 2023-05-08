@@ -3,6 +3,7 @@ import React from "react";
 import { getJsxNameFromRelativePath } from "./name/get-jsx-name.ts";
 import Popout from "../components/popout";
 import { Link } from "react-router-dom";
+import { getUrlSlugNameFromRelativePath } from "./name";
 
 async function waitForImportToResolveAndExtractDefaultExport([
   fileName,
@@ -31,7 +32,7 @@ function wrapWithLink([fileName]: [string, Component<React.ReactNode>]): [
   Component<React.ReactNode>
 ] {
   const PageLink: Component<React.ReactNode> = () => (
-    <Link to={`/${fileName}`}>{fileName}</Link>
+    <Link to={`/${getUrlSlugNameFromRelativePath(fileName)}`}>{fileName}</Link>
   );
 
   return [`${fileName}Link`, PageLink];
