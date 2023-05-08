@@ -1,7 +1,7 @@
 import JSXPopout from "~/components/popout";
 import { getJsxNameFromRelativePath } from "~/util/get-jsx-name";
 
-export default function Popout(props) {
+export default function SubpageLink(props) {
     const fileName = props.children._source.fileName
     const trigger = getJsxNameFromRelativePath(fileName)
 
