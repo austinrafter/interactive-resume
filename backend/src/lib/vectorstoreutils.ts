@@ -1,6 +1,6 @@
 // Source: https://github.com/mayooear/langchain-js-tutorial/blob/main/src/lib/vectorstoreutils.ts
 // Credit goes to https://github.com/mayooear
-import { OpenAIEmbeddings } from "langchain/embeddings";
+import { CohereEmbeddings } from "langchain/embeddings";
 import { OpenAI } from "langchain/llms";
 import { VectorDBQAChain, loadQAChain } from "langchain/chains";
 import { Document } from "langchain/document";
@@ -8,7 +8,7 @@ import { VectorOperationsApi } from "@pinecone-database/pinecone/dist/pinecone-g
 
 type PineConeMetadata = Record<string, any>;
 
-const embeddings = new OpenAIEmbeddings();
+const embeddings = new CohereEmbeddings();
 
 export async function callVectorDBQAChain(
   query: string,
@@ -39,7 +39,7 @@ export async function callVectorDBQAChain(
 //vectorstore
 export async function embedQuery(
   query: string,
-  embeddings: OpenAIEmbeddings
+  embeddings: CohereEmbeddings
 ): Promise<number[]> {
   const embeddedQuery = await embeddings.embedQuery(query);
   console.log("embeddedQuery", embeddedQuery);
