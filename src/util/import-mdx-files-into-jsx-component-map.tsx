@@ -4,6 +4,10 @@ import { getJsxNameFromRelativePath } from "./name/get-jsx-name.ts";
 import { Link } from "react-router-dom";
 import { getUrlSlugNameFromRelativePath } from "./name";
 
+// https://vitejs.dev/guide/features.html#glob-import
+export interface ImportMetaGlobResult {
+  [filepath: string]: Promise<Component<React.ReactNode>>;
+}
 async function waitForImportToResolveAndExtractDefaultExport([
   fileName,
   importPromise,
@@ -69,15 +73,13 @@ async function importMdxFilesAndTransformThemIntoJsxComponentsScript(
   try {
     // 1. Import various MDX files from various places. Apparently, import.meta.glob only supports string literals,
     //    so I am leaving this hard-coded for now.
-    const rawImportsFromTestMock: Record<
-      string,
-      Promise<Component<React.ReactNode>>
-    > = import.meta.glob("../../test/mock/*.mdx");
+    const rawImportsFromTestMock: ImportMetaGlobResult = import.meta.glob(
+      "../../test/mock/*.mdx"
+    );
 
-    const rawImportsFromMdxComponents: Record<
-      string,
-      Promise<Component<React.ReactNode>>
-    > = import.meta.glob("../mdx-components/*.mdx");
+    const rawImportsFromMdxComponents: ImportMetaGlobResult = import.meta.glob(
+      "../mdx-components/*.mdx"
+    );
 
     // 2. Await the promises and then associate their resolved default exports to their transformed file names.
     const jsxNameToJsxComponentPairsPromises: Promise<
