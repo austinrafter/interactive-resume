@@ -1,5 +1,4 @@
 import React from "react";
-import "reactjs-popup/dist/index.css";
 import SubpageLinkContentHeader from "./subpage-link-content-header";
 import SubpageLinkContentBody from "./subpage-link-content-body";
 import styles from "./subpage-link.module.less";
@@ -49,34 +48,4 @@ export default function SubpageLink(props: Props) {
       </SubpageLinkContentBody>
     </div>
   );
-  /*<Popup
-      open={open}
-      onOpen={() => setOpen(true)}
-      onClose={() => setOpen(false)}
-      className={styles.root}
-      contentStyle={{
-        background: "none",
-        border: "none",
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        maxWidth: "900px",
-      }}
-      modal
-      trigger={<a>{props.trigger}</a>}
-    >
-      <SubpageLinkContentHeader handleClose={() => setOpen(false)} />
-      <SubpageLinkContentBody>
-        {isComponentProps(props)
-          ? props.component
-          : isChildrenProps(props)
-          ? props.children
-          : null}
-      </SubpageLinkContentBody>
-    </Popup>
-  );
-
-     */
 }

@@ -1,9 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
+import ImportError from "../test/mock/error.mdx";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { WrappedJsxComponentsDictionary } from "./util/import-mdx-files-into-jsx-component-map";
+import importMdxFilesIntoJsxComponentMap, {
+  WrappedJsxComponentsDictionary,
+} from "./util/import-mdx-files-into-jsx-component-map";
 import { RouteObject } from "react-router/dist/lib/context";
 import SubpageLink from "./components/subpage-link/subpage-link";
 
@@ -37,7 +40,7 @@ function addMdxComponentsToRouter(
     {
       path: "/",
       element: <App />, // should be root
-      errorElement: <Error />,
+      errorElement: <ImportError />,
       children,
     },
   ]);
