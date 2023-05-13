@@ -13,7 +13,13 @@
     "autolint": "npm run fix-with-eslint && npm run fix-with-prettier",
     "prepare": "husky install",
     "test": "vitest",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+
+    "build-backend": "tsc --project tsconfig.json --declaration --outDir dist/",
+    "start-backend": "tsx -r dotenv/config backend/src/index.ts",
+    "start:dist-backend": "npm build && node -r dotenv/config dist/index.js",
+    "lint-backend": "eslint src",
+    "lint:fix-backend": "npm lint --fix"
   },
   "dependencies": {
     "@mdx-js/mdx": "^2.0.0-rc.2",

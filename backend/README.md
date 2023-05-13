@@ -1,0 +1,1 @@
+I pulled all this code from https://github.com/mayooear/langchain-js-tutorial/tree/main. I plan on using it to see if I can get langchain running locally in a Javascript environment. If not I will switch to Python.

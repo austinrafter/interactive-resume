@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { AiChatService } from "../../../backend/src/ai-chat-service";
+// import { AiChatService } from "../../../backend/src/ai-chat-service";
 
 // @TODO  - remove console logs
 export function LoadDocuments() {
@@ -7,7 +7,7 @@ export function LoadDocuments() {
   const [error, setError] = useState();
   const loadDocuments = useCallback(() => {
     setIsLoading(true);
-    const aiChatService = new AiChatService();
+    const aiChatService = new (function () {})(); // AiChatService(); // @TODO - fix this (link w. backend)
     console.log("Loading the documents!");
     aiChatService
       .loadDocuments()

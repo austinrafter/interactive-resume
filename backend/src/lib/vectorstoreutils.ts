@@ -1,8 +1,6 @@
-// Source: https://github.com/mayooear/langchain-js-tutorial/blob/main/src/lib/vectorstoreutils.ts
-// Credit goes to https://github.com/mayooear
 import { CohereEmbeddings } from "langchain/embeddings";
-import { OpenAI } from "langchain/llms";
-import { VectorDBQAChain, loadQAChain } from "langchain/chains";
+import { Cohere } from "langchain/llms";
+import { loadQAChain } from "langchain/chains";
 import { Document } from "langchain/document";
 import { VectorOperationsApi } from "@pinecone-database/pinecone/dist/pinecone-generated-ts-fetch";
 
@@ -25,7 +23,7 @@ export async function callVectorDBQAChain(
     namespace
   );
   const inputs = { question, input_documents: docs };
-  const llm = new OpenAI();
+  const llm = new Cohere();
   const qaChain = loadQAChain(llm, {
     type: "stuff",
   });
