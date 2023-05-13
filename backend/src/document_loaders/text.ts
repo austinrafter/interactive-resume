@@ -1,6 +1,6 @@
 // Source: https://github.com/mayooear/langchain-js-tutorial/blob/main/src/document_loaders/text.ts
 // Credit goes to https://github.com/mayooear
-import { TextLoader } from "langchain/document_loaders";
+import { TextLoader } from "langchain/document_loaders/fs/text";
 
 // @TODO - Figure out if we need a different loader for the .mdx files.
 // @TODO - Use the import glob that's used elsewhere to import all the mdx files.

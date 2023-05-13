@@ -6,7 +6,14 @@ export function AiManagementConsole() {
   return (
     <div>
       <h1>AI Management Console</h1>
-      <ErrorBoundary fallback={<p>Something went wrong in LoadDocuments</p>}>
+      <ErrorBoundary
+        fallback={
+          <p>
+            Something went wrong in LoadDocuments. Check the web browser's
+            development console
+          </p>
+        }
+      >
         <LoadDocuments />
       </ErrorBoundary>
       <Footer />

@@ -17,13 +17,13 @@ export function LoadDocuments() {
       .catch((e) => {
         setError(e);
         console.log("Error loading the documents!");
+        console.error(e);
       })
       .finally(() => {
         setIsLoading(false);
       });
   }, []);
 
-  throw new Error("ha Error in load-documents.tsx!!!! DUHHHHH"); // @TODO - remove this!
   return (
     <div>
       <h2>Load Documents</h2>
