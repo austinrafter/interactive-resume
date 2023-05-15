@@ -1,6 +1,10 @@
-# Interactive-resume
+# Interactive Resume
 
-A collection of Markdown JSX files ([mdx](https://mdxjs.com/)) go in, and a static website bundle comes out.
+__Today__:<br>
+* A collection of Markdown JSX files ([mdx](https://mdxjs.com/)) go in, and a static website bundle comes out.
+
+__WIP / "Tomorrow"__:<br>
+* A collection of Markdown JSX files ([mdx](https://mdxjs.com/)) go in, and a static website bundle _✨ powered by content-aware conversational artificial intelligence ✨_ comes out.
 
 ## How does it work?
 
@@ -40,3 +44,8 @@ We are working on integrating large language model support for the documents, so
 
 * [AI research bucket](https://github.com/candyapplecorn/speech-to-slideshow/wiki)
 * [This document's wiki](https://github.com/candyapplecorn/speech-to-slideshow/wiki)
+
+## Authors
+
+* Austin Rafter -- [austin.rafter14@gmail.com](austin.rafter14@gmail.com)
+* Joseph Burger -- [candyapplecorn@gmail.com](candyapplecorn@gmail.com)
