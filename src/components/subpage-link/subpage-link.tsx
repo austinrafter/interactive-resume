@@ -2,6 +2,7 @@ import React from "react";
 import SubpageLinkContentHeader from "./subpage-link-content-header";
 import SubpageLinkContentBody from "./subpage-link-content-body";
 import styles from "./subpage-link.module.less";
+import { useNavigate } from "react-router-dom";
 
 interface ComponentProps {
   component: React.ReactNode;
@@ -20,7 +21,7 @@ const isChildrenProps = (props: Props): props is Props & ChildrenProps =>
   "children" in props;
 
 export default function SubpageLink(props: Props) {
-  const [open, setOpen] = React.useState(false);
+  const navigate = useNavigate();
 
   return (
     <div
@@ -38,7 +39,11 @@ export default function SubpageLink(props: Props) {
         top: "100px",
       }}
     >
-      <SubpageLinkContentHeader handleClose={() => setOpen(false)} />
+      <SubpageLinkContentHeader
+        handleClose={() => {
+          navigate("/");
+        }}
+      />
       <SubpageLinkContentBody>
         {isComponentProps(props)
           ? props.component
