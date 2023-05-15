@@ -28,9 +28,9 @@ There's a [wiki](https://github.com/austinrafter/interactive-resume/wiki)! Addit
 
 ## Packages
 
-Vite - https://vitejs.dev/
-
-MDX - https://mdxjs.com/
+* Vite - https://vitejs.dev/ - An alternative to webpack; provides a development environment with hot module reloading, and bundles all html/javascript/css/assets into a static web bundle. 
+* MDX - https://mdxjs.com/ - A cool abstraction that wraps markdown with JSX component support.
+* [React](http://reactjs.org/), [React Router](https://reactrouter.com/en/main)
 
 ## Work in Progress
 
