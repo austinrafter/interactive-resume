@@ -23,9 +23,17 @@ const isChildrenProps = (props: Props): props is Props & ChildrenProps =>
 export default function SubpageLink(props: Props) {
   const navigate = useNavigate();
 
+  const escapeKeyChangeLink = (event) => {
+    if (event.key == "Escape") {
+      navigate("/");
+    } else {
+      // debugger;
+    }
+  };
+
   return (
     <div
-      classname={styles.root}
+      className={styles.root}
       style={{
         background: "none",
         border: "none",
@@ -38,10 +46,17 @@ export default function SubpageLink(props: Props) {
         position: "absolute",
         top: "100px",
       }}
+      onKeyUp={escapeKeyChangeLink}
     >
       <SubpageLinkContentHeader
         handleClose={() => {
           navigate("/");
+        }}
+        handleBack={() => {
+          navigate(-1);
+        }}
+        handleForward={() => {
+          navigate(1);
         }}
       />
       <SubpageLinkContentBody>
@@ -50,6 +65,7 @@ export default function SubpageLink(props: Props) {
           : isChildrenProps(props)
           ? props.children
           : null}
+        <div onKeyUp={escapeKeyChangeLink}></div>
       </SubpageLinkContentBody>
     </div>
   );

@@ -4,8 +4,10 @@
 .root {
 
   display: flex;
-  align-items: flex-end;
-  justify-content: end;
+  //align-items: flex-end;
+  justify-content: space-between;
+
+  //padding-left: @size1;
 
   border-radius: @size2 @size2 0px 0px;
   border: 1px solid @borderPrimary;
@@ -19,4 +21,15 @@
     font-size: @size5;
     margin-right: @size2;
   }
+  a:first-child{
+    padding-left: @size1;
+  }
+}
+
+.arrows{
+  justify-content: left;
+}
+
+.close{
+  justify-content: right;
 }
