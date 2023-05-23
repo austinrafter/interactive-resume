@@ -6,6 +6,7 @@ const mdx = await import("@mdx-js/rollup");
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: process.env.VITE_BASE_DEPLOY_PATH,
   optimizeDeps: {
     include: ["react/jsx-runtime"],
   },
