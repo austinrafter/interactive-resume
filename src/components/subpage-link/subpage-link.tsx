@@ -2,7 +2,7 @@ import React from "react";
 import SubpageLinkContentHeader from "./subpage-link-content-header";
 import SubpageLinkContentBody from "./subpage-link-content-body";
 import styles from "./subpage-link.module.less";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 interface ComponentProps {
   component: React.ReactNode;
@@ -22,10 +22,11 @@ const isChildrenProps = (props: Props): props is Props & ChildrenProps =>
 
 export default function SubpageLink(props: Props) {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const escapeKeyChangeLink = (event) => {
     if (event.key == "Escape") {
-      navigate("/");
+      navigate("/", { state: { from: location } });
     } else {
       // debugger;
     }
@@ -50,7 +51,7 @@ export default function SubpageLink(props: Props) {
     >
       <SubpageLinkContentHeader
         handleClose={() => {
-          navigate("/");
+          navigate("/", { state: { from: location.pathname } });
         }}
         handleBack={() => {
           navigate(-1);
@@ -58,6 +59,7 @@ export default function SubpageLink(props: Props) {
         handleForward={() => {
           navigate(1);
         }}
+        prevPageLocation={history.state.usr?.from}
       />
       <SubpageLinkContentBody>
         {isComponentProps(props)

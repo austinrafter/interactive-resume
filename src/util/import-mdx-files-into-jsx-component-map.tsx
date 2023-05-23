@@ -20,7 +20,12 @@ function wrapWithLink([fileName]: [string, Component<React.ReactNode>]): [
   Component<React.ReactNode>
 ] {
   const PageLink: Component<React.ReactNode> = () => (
-    <Link to={`/${getUrlSlugNameFromRelativePath(fileName)}`}>{fileName}</Link>
+    <Link
+      to={`/${getUrlSlugNameFromRelativePath(fileName)}`}
+      state={{ from: location.pathname }}
+    >
+      {fileName}
+    </Link>
   );
 
   return [`${fileName}Link`, PageLink];

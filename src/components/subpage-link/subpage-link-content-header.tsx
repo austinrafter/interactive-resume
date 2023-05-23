@@ -4,6 +4,7 @@ interface SubpageLinkHeaderProps {
   handleClose: () => void;
   handleBack: () => void;
   handleForward: () => void;
+  prevPageLocation: string;
   children: (() => React.ReactNode) | React.ReactNode;
 }
 export default function SubpageLinkContentHeader(
@@ -12,7 +13,9 @@ export default function SubpageLinkContentHeader(
   return (
     <div className={styles.root}>
       <div className={styles.arrows}>
+        {/*{props.prevPageLocation != "/" && (*/}
         <a onClick={props.handleBack}>Back </a>
+        {/*)}*/}
         <a onClick={props.handleForward}>Forward </a>
       </div>
       <div className={styles.close}>
