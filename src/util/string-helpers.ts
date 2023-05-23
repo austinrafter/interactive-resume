@@ -1,5 +1,9 @@
 export function removeRelativePathFromFilename(filename: string): string {
-  const fileNameWithoutExtension = filename.split("/").pop().split(".").shift();
+  const fileNameWithoutExtension = filename
+    .split("/")
+    .pop()
+    ?.split(".")
+    ?.shift();
   if (!fileNameWithoutExtension || fileNameWithoutExtension.length === 0) {
     throw new Error(`Invalid filename: ${filename}`);
   }

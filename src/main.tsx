@@ -9,6 +9,7 @@ import importMdxFilesIntoJsxComponentMap, {
 } from "./util/import-mdx-files-into-jsx-component-map";
 import { RouteObject } from "react-router/dist/lib/context";
 import SubpageLink from "./components/subpage-link/subpage-link";
+import { Component } from "mdx/types";
 
 // For some reason, can't import this.
 type RemixRouter = ReturnType<typeof createBrowserRouter>;
@@ -17,7 +18,10 @@ function getChildrenRoutes(
   componentDictionary: WrappedJsxComponentsDictionary
 ): RouteObject[] {
   return Object.entries(componentDictionary).map(
-    ([componentName, JsxComponent]): RouteObject => {
+    ([componentName, JsxComponent]: [
+      string,
+      Component<React.ReactNode>
+    ]): RouteObject => {
       const routeObject: RouteObject = {
         path: componentName,
         element: (

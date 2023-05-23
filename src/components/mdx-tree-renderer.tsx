@@ -9,7 +9,6 @@ import importMdxFilesIntoJsxComponentMap from "../util/import-mdx-files-into-jsx
 import { PiiContext } from "./pii";
 import pii from "../../src/util/get-encrypted-pii.ts";
 import { Outlet } from "react-router-dom";
-import SubpageLink from "./subpage-link/subpage-link";
 
 export default function MdxTreeRenderer() {
   const [mdxFiles, setMdxFiles] =

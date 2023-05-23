@@ -4,7 +4,7 @@ import decryptText from "../../util/decrypt-text";
 
 export default function Pii(props: { pinfo: string }) {
   const _piiContext = useContext(PiiContext);
-  const encrypted = _piiContext[props.pinfo];
+  const encrypted = _piiContext[props.pinfo as keyof typeof _piiContext];
 
   const [password, setPassword] = useState<string>();
 

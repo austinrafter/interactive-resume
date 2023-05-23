@@ -24,7 +24,7 @@ export default function SubpageLink(props: Props) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const escapeKeyChangeLink = (event) => {
+  const escapeKeyChangeLink = (event: KeyboardEvent) => {
     if (event.key == "Escape") {
       navigate("/", { state: { from: location } });
     } else {

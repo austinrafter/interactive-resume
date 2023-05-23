@@ -7,7 +7,9 @@ import { getUrlSlugNameFromRelativePath } from "./name";
 async function waitForImportToResolveAndExtractDefaultExport([
   fileName,
   importPromise,
-]): Promise<[string, Component<React.ReactNode>]> {
+]: [string, () => Promise<{ default: Component<React.ReactNode> }>]): Promise<
+  [string, Component<React.ReactNode>]
+> {
   const theJsxComponent: React.ReactNode = (await importPromise())
     .default as React.ReactNode;
   const jsxName: string = getJsxNameFromRelativePath(fileName);
@@ -68,20 +70,20 @@ export type WrappedJsxComponentsDictionary = Record<
  *
  */
 async function importMdxFilesAndTransformThemIntoJsxComponentsScript(
-  resolve,
-  reject
+  resolve: (something: any) => void,
+  reject: (error: any) => void
 ): Promise<WrappedJsxComponentsDictionary> {
   try {
     // 1. Import various MDX files from various places. Apparently, import.meta.glob only supports string literals,
     //    so I am leaving this hard-coded for now.
     const rawImportsFromTestMock: Record<
       string,
-      Promise<Component<React.ReactNode>>
+      () => Promise<{ default: Component<React.ReactNode> }>
     > = import.meta.glob("../../test/mock/*.mdx");
 
     const rawImportsFromMdxComponents: Record<
       string,
-      Promise<Component<React.ReactNode>>
+      () => Promise<{ default: Component<React.ReactNode> }>
     > = import.meta.glob("../mdx-components/*.mdx");
 
     // 2. Await the promises and then associate their resolved default exports to their transformed file names.
