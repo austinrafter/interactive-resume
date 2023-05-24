@@ -1,6 +1,7 @@
-import { Cohere } from "langchain";
-import { initializeAgentExecutor } from "langchain/agents";
-import { SerpAPI, Calculator } from "langchain/tools";
+import { Cohere } from "langchain/llms/cohere";
+import { initializeAgentExecutorWithOptions } from "langchain/agents";
+import { SerpAPI } from "langchain/tools";
+import { Calculator } from "langchain/tools/calculator";
 
 /**
  * Agents are like bots/personal assistants that can take actions using external
@@ -13,7 +14,7 @@ export const run = async () => {
   // SerpAPI for example accesses google search results in real-time
   const tools = [new SerpAPI(), new Calculator()];
 
-  const executor = await initializeAgentExecutor(
+  const executor = await initializeAgentExecutorWithOptions(
     tools,
     model,
     "zero-shot-react-description" //a framework to decide what tool to use based on tool's description
