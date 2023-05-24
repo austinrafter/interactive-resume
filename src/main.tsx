@@ -26,6 +26,8 @@ function getChildrenRoutes(
         path: componentName,
         element: (
           <SubpageLink>
+            {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+            {/* @ts-ignore */}
             <JsxComponent />
           </SubpageLink>
         ),
@@ -59,6 +61,8 @@ function renderRoot(router: RemixRouter) {
 }
 
 importMdxFilesIntoJsxComponentMap().then((componentDictionary) => {
-  const router = addMdxComponentsToRouter(componentDictionary);
+  const router = addMdxComponentsToRouter(
+    componentDictionary as unknown as WrappedJsxComponentsDictionary
+  );
   renderRoot(router);
 });

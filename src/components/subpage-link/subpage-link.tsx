@@ -1,4 +1,4 @@
-import React from "react";
+import React, { CSSProperties, KeyboardEventHandler } from "react";
 import SubpageLinkContentHeader from "./subpage-link-content-header";
 import SubpageLinkContentBody from "./subpage-link-content-body";
 import styles from "./subpage-link.module.less";
@@ -14,6 +14,20 @@ interface ChildrenProps {
 
 type Props = ComponentProps | ChildrenProps;
 
+// @TODO - move this to stylesheet
+const WRAPPER_STYLE: CSSProperties = {
+  background: "none",
+  border: "none",
+  width: "100%",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  maxWidth: "900px",
+  position: "absolute",
+  top: "100px",
+};
+
 // Typeguards
 const isComponentProps = (props: Props): props is Props & ComponentProps =>
   "component" in props;
@@ -24,30 +38,19 @@ export default function SubpageLink(props: Props) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const escapeKeyChangeLink = (event: KeyboardEvent) => {
+  const escapeKeyChangeLink = (event: KeyboardEvent): void => {
     if (event.key == "Escape") {
       navigate("/", { state: { from: location } });
-    } else {
-      // debugger;
     }
   };
 
   return (
     <div
       className={styles.root}
-      style={{
-        background: "none",
-        border: "none",
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        maxWidth: "900px",
-        position: "absolute",
-        top: "100px",
-      }}
-      onKeyUp={escapeKeyChangeLink}
+      style={WRAPPER_STYLE}
+      onKeyUp={
+        escapeKeyChangeLink as unknown as KeyboardEventHandler<HTMLDivElement>
+      }
     >
       <SubpageLinkContentHeader
         handleClose={() => {
@@ -67,7 +70,11 @@ export default function SubpageLink(props: Props) {
           : isChildrenProps(props)
           ? props.children
           : null}
-        <div onKeyUp={escapeKeyChangeLink}></div>
+        <div
+          onKeyUp={
+            escapeKeyChangeLink as unknown as KeyboardEventHandler<HTMLDivElement>
+          }
+        ></div>
       </SubpageLinkContentBody>
     </div>
   );

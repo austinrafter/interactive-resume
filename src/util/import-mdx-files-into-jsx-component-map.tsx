@@ -11,10 +11,10 @@ async function waitForImportToResolveAndExtractDefaultExport([
   [string, Component<React.ReactNode>]
 > {
   const theJsxComponent: React.ReactNode = (await importPromise())
-    .default as React.ReactNode;
+    .default as unknown as React.ReactNode;
   const jsxName: string = getJsxNameFromRelativePath(fileName);
 
-  return [jsxName, theJsxComponent as Component<React.ReactNode>];
+  return [jsxName, theJsxComponent as unknown as Component<React.ReactNode>];
 }
 
 function wrapWithLink([fileName]: [string, Component<React.ReactNode>]): [
@@ -33,7 +33,7 @@ function wrapWithLink([fileName]: [string, Component<React.ReactNode>]): [
   return [`${fileName}Link`, PageLink];
 }
 
-type ComponentWithMetadata<U> = U & { meta: { title: string } };
+export type ComponentWithMetadata<U> = U & { meta: { title: string } };
 function addMetaDataToComponentMap<
   ComponentType extends Component<React.ReactNode>
 >(
@@ -70,21 +70,29 @@ export type WrappedJsxComponentsDictionary = Record<
  *
  */
 async function importMdxFilesAndTransformThemIntoJsxComponentsScript(
-  resolve: (something: any) => void,
+  resolve: (
+    something: ComponentWithMetadata<Component<React.ReactNode>>
+  ) => void,
   reject: (error: any) => void
-): Promise<WrappedJsxComponentsDictionary> {
+) {
   try {
     // 1. Import various MDX files from various places. Apparently, import.meta.glob only supports string literals,
     //    so I am leaving this hard-coded for now.
     const rawImportsFromTestMock: Record<
       string,
       () => Promise<{ default: Component<React.ReactNode> }>
-    > = import.meta.glob("../../test/mock/*.mdx");
+    > = import.meta.glob("../../test/mock/*.mdx") as Record<
+      string,
+      () => Promise<{ default: Component<React.ReactNode> }>
+    >;
 
     const rawImportsFromMdxComponents: Record<
       string,
       () => Promise<{ default: Component<React.ReactNode> }>
-    > = import.meta.glob("../mdx-components/*.mdx");
+    > = import.meta.glob("../mdx-components/*.mdx") as Record<
+      string,
+      () => Promise<{ default: Component<React.ReactNode> }>
+    >;
 
     // 2. Await the promises and then associate their resolved default exports to their transformed file names.
     const jsxNameToJsxComponentPairsPromises: Promise<
@@ -118,8 +126,10 @@ async function importMdxFilesAndTransformThemIntoJsxComponentsScript(
   }
 }
 
-export default async function importMdxFilesIntoJsxComponentMap(): Promise<WrappedJsxComponentsDictionary> {
+export default async function importMdxFilesIntoJsxComponentMap(): Promise<
+  ComponentWithMetadata<Component<React.ReactNode>>
+> {
   return new Promise(
     importMdxFilesAndTransformThemIntoJsxComponentsScript
-  ) as Promise<WrappedJsxComponentsDictionary>;
+  ) as Promise<ComponentWithMetadata<Component<React.ReactNode>>>;
 }
