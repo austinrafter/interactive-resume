@@ -10,7 +10,8 @@ import importMdxFilesIntoJsxComponentMap, {
 } from "../util/import-mdx-files-into-jsx-component-map";
 import { PiiContext } from "./pii";
 import pii from "../../src/util/get-encrypted-pii.ts";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
+import { scrollToHeader } from "../util/dom-manipulation/scroll-to-header";
 
 export default function MdxTreeRenderer() {
   const [mdxFiles, setMdxFiles] =
@@ -24,6 +25,17 @@ export default function MdxTreeRenderer() {
     // @ts-ignore
     importMdxFilesIntoJsxComponentMap().then(setMdxFiles).catch(setError);
   }, []);
+
+  // Here's some code which allows the website to support scrolling to the scroll query param
+  const location = useLocation();
+  const search = new URLSearchParams(location.search);
+  const scrollTarget = search.get("scroll");
+
+  useEffect(() => {
+    if (scrollTarget) {
+      scrollToHeader(scrollTarget);
+    }
+  }, [scrollTarget, isEmpty(mdxFiles)]);
 
   if (isEmpty(mdxFiles)) {
     return <Loading />;
