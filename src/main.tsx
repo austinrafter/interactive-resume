@@ -42,14 +42,23 @@ function addMdxComponentsToRouter(
   componentDictionary: WrappedJsxComponentsDictionary
 ): RemixRouter {
   const children = getChildrenRoutes(componentDictionary);
-  return createBrowserRouter([
+  const basePath = import.meta.env.DEV
+    ? "/"
+    : `/${import.meta.env.VITE_PROJECT_NAME}`;
+
+  return createBrowserRouter(
+    [
+      {
+        path: basePath,
+        element: <App />, // should be root
+        errorElement: <ImportError />,
+        children,
+      },
+    ],
     {
-      path: "/",
-      element: <App />, // should be root
-      errorElement: <ImportError />,
-      children,
-    },
-  ]);
+      basename: basePath,
+    }
+  );
 }
 
 function renderRoot(router: RemixRouter) {
