@@ -48,4 +48,6 @@ We are working on integrating large language model support for the documents, so
 ## Authors
 
 * Austin Rafter -- [austin.rafter14@gmail.com](austin.rafter14@gmail.com)
+  * Code repo clone url: `git@github.com:austinrafter/interactive-resume.git`
 * Joseph Burger -- [candyapplecorn@gmail.com](candyapplecorn@gmail.com)
+  * Code repo clone url: `git@github.com:candyapplecorn/interactive-resume.git`
