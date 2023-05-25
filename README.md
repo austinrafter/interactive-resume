@@ -51,3 +51,28 @@ We are working on integrating large language model support for the documents, so
   * Code repo clone url: `git@github.com:austinrafter/interactive-resume.git`
 * Joseph Burger -- [candyapplecorn@gmail.com](candyapplecorn@gmail.com)
   * Code repo clone url: `git@github.com:candyapplecorn/interactive-resume.git`
+
+### Develoepr Notes
+
+Joseph's gone and forked this repo. In order to push commits to a fork, he's found this as the most convenient method.
+<br>Assuming two remotes,<br> 
+`A`: `git@github.com:austinrafter/interactive-resume.git`<br>
+`B`: `git@github.com:candyapplecorn/interactive-resume.git`
+
+1. Push the commits up to the current remote `A`.
+2. Change the current remote to `B`:<br>`git remote set-url origin git@github.com:candyapplecorn/interactive-resume.git`
+3. Merge the previous remote's code into local:<br>`git merge origin git@github.com:austinrafter/interactive-resume.git main`<br>(_not 100% sure this command is right_)
+4. Push the local up to remote `B`
+
+And that's how you can keep a fork up to date with another branch! Don't forget to switch the remote back to the original branch when you're done 😊
+
+__List remotes with their URL's:__ `git remote -v`
+
+```bash
+candy/interactive-resume        git@github.com:candyapplecorn/interactive-resume.git (fetch)
+candy/interactive-resume        git@github.com:candyapplecorn/interactive-resume.git (push)
+origin  git@github.com:austinrafter/interactive-resume.git (fetch)
+origin  git@github.com:austinrafter/interactive-resume.git (push)
+```
+
+This is handy because it shows which remote is currently set as the default remote.
