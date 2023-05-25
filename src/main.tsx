@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import ImportError from "../test/mock/error.mdx";
 import "./index.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createHashRouter, RouterProvider } from "react-router-dom";
 import importMdxFilesIntoJsxComponentMap, {
   WrappedJsxComponentsDictionary,
 } from "./util/import-mdx-files-into-jsx-component-map";
@@ -12,7 +12,7 @@ import SubpageLink from "./components/subpage-link/subpage-link";
 import { Component } from "mdx/types";
 
 // For some reason, can't import this.
-type RemixRouter = ReturnType<typeof createBrowserRouter>;
+type RemixRouter = ReturnType<typeof createHashRouter>;
 
 function getChildrenRoutes(
   componentDictionary: WrappedJsxComponentsDictionary
@@ -42,21 +42,18 @@ function addMdxComponentsToRouter(
   componentDictionary: WrappedJsxComponentsDictionary
 ): RemixRouter {
   const children = getChildrenRoutes(componentDictionary);
-  const basePath = import.meta.env.DEV
-    ? "/"
-    : `/${import.meta.env.VITE_PROJECT_NAME}`;
 
-  return createBrowserRouter(
+  return createHashRouter(
     [
       {
-        path: basePath,
+        path: "/",
         element: <App />, // should be root
         errorElement: <ImportError />,
         children,
       },
     ],
     {
-      basename: basePath,
+      basename: "/",
     }
   );
 }

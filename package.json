@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://austinrafter.github.io/interactive-resume/",
+  "homepage": "https://austinrafter.github.io/interactive-resume/#",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
