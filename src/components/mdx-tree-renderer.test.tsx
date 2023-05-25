@@ -1,4 +1,4 @@
-import { describe, expect, test, beforeEach, vitest } from "vitest";
+import { describe, expect, test, vitest } from "vitest";
 import React from "react";
 import { render } from "@testing-library/react";
 import { scrollToHeader } from "../util/dom-manipulation/scroll-to-header";
