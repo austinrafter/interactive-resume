@@ -8,15 +8,15 @@ export function scrollToHeader(scrollTarget: string) {
     .filter((header) =>
       header.textContent?.toLowerCase().includes(scrollTarget)
     )
-    .sort((a, b): 1 | 0 | -1 => {
+    .sort((a: Element, b: Element): 1 | 0 | -1 => {
       if (
-        a.textContent?.toLowerCase().length <
-        b.textContent?.toLowerCase().length
+        (a?.textContent?.toLowerCase().length || 0) <
+        (b?.textContent?.toLowerCase().length || 0)
       ) {
         return 1;
       } else if (
-        a.textContent?.toLowerCase().length >
-        b.textContent?.toLowerCase().length
+        (a?.textContent?.toLowerCase().length || 0) >
+        (b?.textContent?.toLowerCase().length || 0)
       ) {
         return -1;
       }
